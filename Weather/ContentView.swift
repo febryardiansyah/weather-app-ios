@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isNight: Bool = false
+    
     var body: some View {
         ZStack {
-            BackgroundView(topColor: .blue, bottomColor: Color("lightBlue"))
+            BackgroundView(topColor:isNight ? .black : .blue, bottomColor: isNight ? .gray : Color("lightBlue"))
             
             VStack {
                 Text("Cupertino, CA")
@@ -19,7 +21,7 @@ struct ContentView: View {
                     .padding(.top,10)
                 
                 VStack(spacing: 10) {
-                    Image(systemName: "cloud.sun.fill")
+                    Image(systemName: isNight ? "moon.stars.fill" : "cloud.sun.fill")
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -40,13 +42,11 @@ struct ContentView: View {
                 Spacer()
                 
                 Button {
-                    print("tapped")
+                    isNight.toggle()
                 } label: {
-                    Text("Change Day Time")
-                        .frame(width: 280, height: 50)
-                        .background(.white)
-                        .font(.system(size: 20, weight: .bold, design: .default))
-                        .cornerRadius(10)
+                    AppButton(title: "Change Day Time",
+                              textColor: .blue,
+                              backgroundColor: .white)
                 }
                 Spacer()
                 
